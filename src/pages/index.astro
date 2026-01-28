@@ -1,11 +1,59 @@
 ---
-import Welcome from '../components/Welcome.astro';
+
+import DreamCard from '../components/DreamCard';
+import Stats from '../components/Stats';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
----
+const myDreams = [
+  {
+    id: 1,
+    title: "Restaurante Gamer",
+    description: "Un espacio temático de videojuegos y comida increíble en Venezuela.",
+    status: "construccion",
+    imageUrl: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f"
+  },
+  {
+    id: 2,
+    title: "Negocio de Bombas de agua",
+    description: "Empresa familiar de venta y reparación con mi papá.",
+    status: "pendiente",
+    imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 3,
+    title: "Aprender Robótica",
+    description: "Dominar Arduino para construir mis propios juguetes tecnológicos.",
+    status: "pendiente",
+    imageUrl: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb"
+  },
+  {
+    id: 4,
+    title: "Bot de WhatsApp IA",
+    description: "Mi proyecto estrella para conseguir trabajo como programador.",
+    status: "logrado",
+    imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995"
+  }
+];
 
+---
 <Layout>
-	<Welcome />
+<main class="bg-black min-h-screen p-10 ">
+  <Stats client:load total={myDreams.length}/>
+	<h1 class="text-4xl font-bold text-white text-center mb-10">
+		My Dreams and Projects <span class="text-purple-500">2026</span>
+	</h1>
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+		{myDreams.map(dream => (
+			<DreamCard 
+        	client:load 
+          dreamId={dream.id}
+     			title={dream.title}
+     			description={dream.description} 
+     			status={dream.status}
+     			imageUrl={dream.imageUrl}
+  />			
+		))}
+	</div>
+  
+</main>
 </Layout>
